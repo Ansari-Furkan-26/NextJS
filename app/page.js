@@ -34,7 +34,7 @@ export default function HomePage() {
 
   return (
     <div className={`${geistSans.variable} ${geistMono.variable}`}>
-      <NextSeo
+      {/* <NextSeo
         title="Rukn Al Dyafa | Hospitality Service"
         description="Discover premium catering, hospitality and beverage services in the UAE. We specialize in luxurious drinks and unforgettable experiences for weddings, corporate events, and private gatherings guests."
         canonical="https://www.ruknaldyafa.ae/"
@@ -71,7 +71,7 @@ export default function HomePage() {
             'Experience luxurious catering services in the UAE. From bespoke drinks to customized experiences for any event.',
           image: 'https://i.pinimg.com/736x/a5/dd/21/a5dd2105486983221aac5199b30a29ac.jpg',
         }}
-      />
+      /> */}
       
       {/* Navbar */}
       <Navbar
