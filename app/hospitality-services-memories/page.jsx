@@ -60,9 +60,9 @@ export default async function GalleryPage() {
       </header>
 
       {/* Image Gallery */}
-      <div className="gallery grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 px-4">
+      <div className="gallery columns-2 sm:columns-3 md:columns-4 lg:columns-5 gap-2 px-2 pb-2 md:px-24">
         {images.map((image) => (
-          <div key={image.id} className="mb-4 rounded-lg overflow-hidden">
+          <div key={image.id} className="mb-2 break-inside-avoid">
             <img
               src={image.src}
               alt={image.alt}

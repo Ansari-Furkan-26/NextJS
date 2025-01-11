@@ -2,16 +2,16 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FaInstagram, FaWhatsapp, FaSnapchat } from "react-icons/fa";
-import About from "../components/About";
-import Plans from "../components/Plans";
-import BlogSection from "../components/BlogSection";
-import VideoBackground from "../components/VideoBackground";
-import Form from "../components/ContactForm";
-import FeaturedArtworks from "../components/HeroGallery";
-import FAQs from "../components/FAQs";
-import Footer from "@/components/Footer";
 
 export default function HomePage() {
+   // Manage language state
+   const [language, setLanguage] = useState("english");
+
+   // Function to toggle language
+   const toggleLanguage = () => {
+     setLanguage((prevLanguage) => (prevLanguage === "english" ? "arabic" : "english"));
+   };
+
   const [currentImage, setCurrentImage] = useState(0);
 
   // Define image paths
@@ -42,6 +42,7 @@ export default function HomePage() {
 
   return (
     <div className="relative bg-black min-h-screen flex flex-col">
+      
       {/* Mobile View: Background Marquee */}
       <div className="absolute inset-0 md:hidden overflow-x-scroll">
         {images.map((src, index) => (
@@ -117,14 +118,6 @@ export default function HomePage() {
           </a>
         </div>
       </div>
-
-      <About />
-      <VideoBackground />
-      <Plans />
-      <BlogSection />
-      <FeaturedArtworks />
-      <Form />
-      {/* <FAQs /> */}
     </div>
   );
 }

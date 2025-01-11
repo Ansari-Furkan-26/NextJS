@@ -54,7 +54,6 @@ const importedImages = [
   { src: "/images/50.jpg", alt: "Image 50" },
 ];
 
-
 const ImageGallery = ({ language = "english" }) => {
     const translations = {
       english: {
@@ -65,28 +64,30 @@ const ImageGallery = ({ language = "english" }) => {
       },
     };
 
-    return (
-      <div className="pb-10 bg-gray-100 ">
-      <h2 className="text-3xl font-bold text-center mb-6">
-        {translations[language].heading}
-      </h2>
-      <div
-        id="image-gallery-container"
-        className="overflow-x-scroll p-4 mx-auto flex gap-4"
-        style={{ whiteSpace: "nowrap" }}
-      >
-        {importedImages.map((image, index) => (
-        <img
-          key={index}
-          src={image.src}
-          alt={image.alt}
-          className="max-w-sm w-80 object-cover rounded-lg transition-transform duration-300 ease-in-out hover:scale-105"
-        />
-      ))}
-      </div>
+  return (
+    <div className="pb-10 bg-gray-100 ">
+    <h2 className="text-3xl font-bold text-center mb-6">
+      {translations[language].heading}
+    </h2>
+    <div className="relative overflow-hidden px-3 ">
+    <div className="overflow-x-scroll relative p-4 mx-auto flex gap-4"
+      id="image-gallery-container"
+      style={{ whiteSpace: "nowrap" }}
+    >
+      {importedImages.map((image, index) => (
+      <img
+        key={index}
+        src={image.src}
+        alt={image.alt}
+        className="max-w-sm w-80 object-cover rounded-lg transition-transform duration-300 ease-in-out hover:scale-105"
+      />
+    ))}
     </div>
-    );
-  };
-  
-  export default ImageGallery;
+    </div>
+    
+  </div>
+  );
+};
+
+export default ImageGallery;
   

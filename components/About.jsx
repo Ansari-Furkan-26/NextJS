@@ -1,28 +1,76 @@
 import React from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
-const cards = [
-  {
-    img: "/images/6.jpg",
-    title: "Beverage Service Experience for Guests",
-    message:
-      "Rukn Al Dyafa serves the finest traditional and international beverages with exceptional service, enhancing the visitor experience at every moment.",
-  },
-  {
-    img: "/images/4.jpg",
-    title: "Luxury Wedding Events",
-    message:
-      "Unique designs and exceptional service create unforgettable weddings, offering elegance and a touch of perfection for the special occasion.",
-  },
-  {
-    img: "/images/33.jpg", 
-    title: "Business Conferences",
-    message:
-      "Rukn Al Dyafa provides professional hospitality services tailored to meetings and conferences, ensuring guest comfort and event success.",
-  },
-];
+// Define content for both languages
+const cardsContent = {
+  english: [
+    {
+      img: "/images/6.jpg",
+      title: "Beverage Service Experience for Guests",
+      message:
+        "Rukn Al Dyafa serves the finest traditional and international beverages with exceptional service, enhancing the visitor experience at every moment.",
+    },
+    {
+      img: "/images/4.jpg",
+      title: "Luxury Wedding Events",
+      message:
+        "Unique designs and exceptional service create unforgettable weddings, offering elegance and a touch of perfection for the special occasion.",
+    },
+    {
+      img: "/images/33.jpg",
+      title: "Business Conferences",
+      message:
+        "Rukn Al Dyafa provides professional hospitality services tailored to meetings and conferences, ensuring guest comfort and event success.",
+    },
+  ],
+  arabic: [
+    {
+      img: "/images/6.jpg",
+      title: "تجربة تقديم المشروبات للضيوف",
+      message:
+        "ركن الضيافة يقدم أفخر المشروبات التقليدية والدولية مع خدمة استثنائية، مما يعزز تجربة الزوار في كل لحظة.",
+    },
+    {
+      img: "/images/4.jpg",
+      title: "فعاليات زفاف فاخرة",
+      message:
+        "تصاميم فريدة وخدمة استثنائية تخلق حفلات زفاف لا تُنسى، وتضفي لمسة من الأناقة والكمال على المناسبة الخاصة.",
+    },
+    {
+      img: "/images/33.jpg",
+      title: "مؤتمرات الأعمال",
+      message:
+        "ركن الضيافة يوفر خدمات ضيافة مهنية مصممة خصيصًا للاجتماعات والمؤتمرات، مما يضمن راحة الضيوف ونجاح الفعالية.",
+    },
+  ],
+};
 
-function About() {
+const aboutContent = {
+  english: {
+    heading: "Delivering Timeless Elegance and Mixology Excellence to Your Events.",
+    description:
+      "Crafting experiences that harmonize classic elegance with natural serenity, bringing refinement and balance to every occasion.",
+    button: "Book Your Event",
+    cateringHeading: "Luxury Coffee Service Across All Emirates",
+    cateringDescription:
+      "We specialize in providing luxury coffee services across all Emirates, ensuring an exceptional experience for your guests. Our expert baristas craft premium beverages with precision and flair, adding a touch of sophistication to any event. Whether it’s a corporate gathering, wedding, or private celebration, our coffee service is tailored to meet your unique needs. From elegant presentation to seamless execution, we focus on every detail to leave a lasting impression. Let us elevate your event with unparalleled quality and professionalism.",
+  },
+  arabic: {
+    heading: "نقدم أناقة خالدة وتميز في فن المزج لمناسباتكم.",
+    description:
+      "نصنع تجارب تجمع بين الأناقة الكلاسيكية والهدوء الطبيعي، مما يضفي الرقي والتوازن على كل مناسبة.",
+    button: "احجز مناسبتك",
+    cateringHeading: "خدمة قهوة فاخرة في جميع الإمارات",
+    cateringDescription:
+      "نحن متخصصون في تقديم خدمات القهوة الفاخرة في جميع أنحاء الإمارات، مما يضمن تجربة استثنائية لضيوفكم. يقوم خبراؤنا بتحضير مشروبات مميزة بعناية، مضيفين لمسة من الأناقة لأي مناسبة. سواء كانت تجمعًا للشركات، أو حفلة زفاف، أو احتفالاً خاصًا، فإن خدمتنا مصممة لتلبية احتياجاتكم. من التقديم الأنيق إلى التنفيذ السلس، نركز على كل التفاصيل لنترك انطباعًا دائمًا. دعونا نرفع من مستوى مناسبتكم بالجودة والاحترافية التي لا تُضاهى.",
+  },
+};
+
+function About({ language }) {
+  const content = aboutContent[language];
+  const cards = cardsContent[language];
+
   return (
     <div className="h-full px-4 py-8 sm:px-8 bg-gray-100">
       {/* About Section */}
@@ -33,7 +81,7 @@ function About() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
         >
-          Delivering Timeless Elegance and Mixology Excellence to Your Events.
+          {content.heading}
         </motion.h2>
         <motion.div
           className="block max-w-2xl"
@@ -41,15 +89,12 @@ function About() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <p className="text-gray-600 mb-6">
-            Crafting experiences that harmonize classic elegance with natural
-            serenity, bringing refinement and balance to every occasion.
-          </p>
-          <a href="luxury-hospitality-services">
+          <p className="text-gray-600 mb-6">{content.description}</p>
+          <Link href="/luxury-hospitality-services">
             <button className="bg-black hover:bg-gray-800 text-white py-2 px-4 rounded-full mb-6 transition-all">
-              Book Your Event
+              {content.button}
             </button>
-          </a>
+          </Link>
         </motion.div>
       </div>
 
@@ -102,20 +147,8 @@ function About() {
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl font-bold mb-4">
-            Luxury Coffee Service Across All Emirates
-          </h2>
-          <p className="text-gray-700">
-            We specialize in providing luxury coffee services across all
-            Emirates, ensuring an exceptional experience for your guests. Our
-            expert baristas craft premium beverages with precision and flair,
-            adding a touch of sophistication to any event. Whether it’s a corporate
-            gathering, wedding, or private celebration, our coffee service is
-            tailored to meet your unique needs. From elegant presentation to
-            seamless execution, we focus on every detail to leave a lasting
-            impression. Let us elevate your event with unparalleled quality and
-            professionalism.
-          </p>
+          <h2 className="text-3xl font-bold mb-4">{content.cateringHeading}</h2>
+          <p className="text-gray-700">{content.cateringDescription}</p>
         </motion.div>
       </div>
     </div>
