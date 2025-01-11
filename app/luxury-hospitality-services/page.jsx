@@ -1,7 +1,10 @@
-import React, { Suspense } from "react";
+'use client'
+import React, { Suspense, useState } from "react";
 import OrderForm from "@/components/OrderForm";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
-const LuxuryServices = ({ language = "english" }) => {
+const LuxuryServices = () => {
   const translations = {
     english: {
       heading: "Experience luxury with our premium drink selection",
@@ -13,10 +16,24 @@ const LuxuryServices = ({ language = "english" }) => {
       paragraph:
         " في ركن الضيافة، نقدم أناقة الضيافة التقليدية من خلال تقديم الطعام الفاخر.",
     },
-  };
+  }; 
+
+  const [language, setLanguage] = useState("english");
+      const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    
+      const toggleLanguage = () => {
+        setLanguage((prev) => (prev === "english" ? "arabic" : "english"));
+      };
 
   return (
     <div>
+      <Navbar
+        language={language}
+        toggleLanguage={toggleLanguage}
+        mobileMenuOpen={mobileMenuOpen}
+        setMobileMenuOpen={setMobileMenuOpen}
+      />
+
       {/* Hero Section */}
       <div className="relative bg-black h-[30rem] px-4 sm:px-8">
         {/* Background Image */}
@@ -47,6 +64,8 @@ const LuxuryServices = ({ language = "english" }) => {
       <Suspense fallback={<div>Loading...</div>}>
         <OrderForm language={language} />
       </Suspense>
+         
+    <Footer language={language} />
     </div>
   );
 };

@@ -3,8 +3,10 @@ import React, { useState } from "react";
 // import Cart from "@/components/Cart";
 import PackShowcase2 from "@/components/Package";
 import { motion } from "framer-motion";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer"; 
 
-const Checkout = ({ language }) => {
+const Checkout = () => {
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [selectedPackagePrice, setSelectedPackagePrice] = useState(null);
 
@@ -17,8 +19,22 @@ const Checkout = ({ language }) => {
     document.getElementById("cart")?.scrollIntoView({ behavior: "smooth" });
   };
 
+  
+  const [language, setLanguage] = useState("english");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const toggleLanguage = () => {
+    setLanguage((prev) => (prev === "english" ? "arabic" : "english"));
+  };
+  
   return (
     <div className="bg-gray-100">
+       <Navbar
+        language={language}
+        toggleLanguage={toggleLanguage}
+        mobileMenuOpen={mobileMenuOpen}
+        setMobileMenuOpen={setMobileMenuOpen}
+      />
       {/* Hero Section */}
       <div className="relative bg-black h-[30rem] px-4 sm:px-8">
         {/* Background Image */}
@@ -78,8 +94,10 @@ const Checkout = ({ language }) => {
           🛒
         </button>
       )}
+      
+    <Footer language={language} />
     </div>
   );
 };
 
-export default Checkout;
+export default Checkout; 

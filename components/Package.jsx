@@ -171,12 +171,10 @@ const Packages2 = [
 const PackShowcase2 = ({ onSelectPackage, language }) => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
 
-  // Handle package selection and show the popup
   const handleSelectPackage = () => {
     setIsPopupVisible(true);
   };
 
-  // Hide the popup after 5 seconds
   useEffect(() => {
     if (isPopupVisible) {
       const timer = setTimeout(() => {
@@ -187,12 +185,10 @@ const PackShowcase2 = ({ onSelectPackage, language }) => {
     }
   }, [isPopupVisible]);
 
-  // Update the document language
   useEffect(() => {
     document.documentElement.lang = language === "arabic" ? "ar" : "en";
   }, [language]);
 
-  // Dynamically get the translation for the current language
   const t = translations[language] || translations.english;
 
   return (
@@ -201,7 +197,7 @@ const PackShowcase2 = ({ onSelectPackage, language }) => {
       <div className="overflow-hidden flex-col lg:flex-row items-center justify-center flex my-5 h-full">
         <div className="md:flex md:space-x-6 p-4 overflow-x-scroll h-full py-3">
           {Packages2.map((product, index) => {
-            const packageTranslation = t.packages[index]; // Dynamically fetch translations for the package
+            const packageTranslation = t.packages[index];
             return (
               <motion.div
                 key={index}
@@ -218,22 +214,22 @@ const PackShowcase2 = ({ onSelectPackage, language }) => {
                   <p className="text-gray-600">{packageTranslation.guests}</p>
                   <p className="text-gray-600">{packageTranslation.description}</p>
                   <div className="text-sm my-2">
-                    <p className="text-sm">
+                    <div className="text-sm">
                       <strong>{t.HotType}:</strong>
                       <ul>
                         {t.hotDrinks.map((drink, index) => (
                           <li key={index}>{drink}</li>
                         ))}
                       </ul>
-                    </p>
-                    <p className="text-sm">
+                    </div>
+                    <div className="text-sm">
                       <strong>{t.ColdType}:</strong>
                       <ul>
                         {t.coldDrinks.map((drink, index) => (
                           <li key={index}>{drink}</li>
                         ))}
                       </ul>
-                    </p>
+                    </div>
                     <p className="text-sm mt-4">
                       <strong>{t.Additional}:</strong> <br />
                       {packageTranslation.additional}
@@ -247,7 +243,6 @@ const PackShowcase2 = ({ onSelectPackage, language }) => {
                     className="bg-blue-500 text-white rounded px-8 py-2 hover:bg-green-500"
                     onClick={() => {
                       onSelectPackage(product.title, product.price);
-                      // handleSelectPackage(); // Ensure both functions are called
                     }}
                   >
                     {t.select}
@@ -260,7 +255,6 @@ const PackShowcase2 = ({ onSelectPackage, language }) => {
         </div>
       </div>
 
-      {/* Cart Popup */}  
       {isPopupVisible && (
         <div className="fixed inset-x-0 bottom-0 bg-opacity-80 flex justify-center items-center z-50">
           <div className="bg-gray-800 text-white rounded-t-lg p-4 w-full max-w-lg flex items-center justify-between shadow-lg">

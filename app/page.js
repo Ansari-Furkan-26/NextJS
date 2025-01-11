@@ -9,7 +9,7 @@ import BlogSection from "@/components/BlogSection";
 import VideoBackground from "@/components/VideoBackground";
 import Form from "@/components/ContactForm";
 import FeaturedArtworks from "@/components/HeroGallery";
-import Index from "./index"
+import Home from "@/components/Home"
 import Footer from "@/components/Footer";
 
 const geistSans = Geist({
@@ -41,7 +41,7 @@ export default function HomePage() {
       />
       
       {/* Page Components */}
-      <Index />
+      <Home language={language}/>
       <About language={language} />
       <VideoBackground language={language} />
       <Plans language={language} />

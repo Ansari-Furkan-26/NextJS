@@ -1,7 +1,4 @@
-// 'use client';
 import React from "react";
-// import Navbar from "@/components/Navbar";
-// import Footer from "@/components/Footer";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -21,23 +18,11 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  // const [language, setLanguage] = useState("english");
-  // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  // const toggleLanguage = () => {
-  //   setLanguage((prev) => (prev === "english" ? "arabic" : "english"));
-  // };
 
   return (
     <html lang="en">
       <body>
-        {/* <Navbar
-          language={language}
-          toggleLanguage={toggleLanguage}
-          mobileMenuOpen={mobileMenuOpen}
-          setMobileMenuOpen={setMobileMenuOpen}/> */}
         <main>{children}</main>
-        {/* <Footer language={language} /> */}
       </body>
     </html>
   );

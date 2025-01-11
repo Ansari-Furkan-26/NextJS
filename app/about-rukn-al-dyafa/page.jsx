@@ -2,9 +2,9 @@
 
 import React, { useState  } from "react";
 import About from '@/components/About';
-import Gallery from '@/components/HeroGallery';
+// import Gallery from '@/components/HeroGallery';
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Footer from "@/components/Footer"; 
 
 
 const AboutSection = () => {
@@ -55,8 +55,8 @@ const AboutSection = () => {
     </section> 
     
     <About language={language} />
-    <Gallery language={language} />
-    <Footer />
+    {/* <Gallery language={language} />     */}
+    <Footer language={language} />
   </div>
   );
 };
