@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from "react";
-// import Cart from "@/components/Cart";
+import Cart from "@/components/Cart";
 import PackShowcase2 from "@/components/Package";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
@@ -76,11 +76,11 @@ const Checkout = () => {
       <PackShowcase2 onSelectPackage={handlePackageSelection} language={language} />
 
       {/* Cart Section */}
-      {/* <Cart
+      <Cart
         selectedPackage={selectedPackage}
         selectedPackagePrice={selectedPackagePrice}
         language={language}
-      /> */}
+      />
 
       {/* Floating Button */}
       {selectedPackage && (

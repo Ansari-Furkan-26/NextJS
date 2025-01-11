@@ -5,7 +5,7 @@ import About from '@/components/About';
 // import Gallery from '@/components/HeroGallery';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer"; 
-
+import { NextSeo } from 'next-seo';
 
 const AboutSection = () => {
   const translations = {
@@ -29,6 +29,47 @@ const AboutSection = () => {
 
   return (
     <div className="bg-gray-100 min-h-screen" id="ExploreMoment">
+      <NextSeo
+        title="Rukn Al Dyafa - Experience in Luxury, Weddings & Corporate Events"
+        description="Learn more about our commitment to delivering premium catering and beverage services. We bring elegance and taste to your events in the UAE."
+        canonical="https://www.ruknaldyafa.ae/about-section"
+        openGraph={{
+          url: 'https://www.ruknaldyafa.ae/about-section',
+          title: 'Rukn Al Dyafa - About Us',
+          description:
+            "Explore how our premium catering and beverage services bring elegance and unforgettable moments to your special occasions in the UAE.",
+          images: [
+            {
+              url: 'https://example.com/your-image.jpg', // Replace with your image URL
+              width: 800,
+              height: 600,
+              alt: 'Rukn Al Dyafa Catering Services',
+            },
+          ],
+          site_name: 'Rukn Al Dyafa',
+          type: 'website',
+        }}
+        twitter={{
+          cardType: 'summary_large_image',
+          title: 'Rukn Al Dyafa - About Us',
+          description:
+            "Discover our luxurious catering and beverage services in the UAE. Let us create unforgettable events tailored to your needs.",
+          image: 'https://example.com/your-image.jpg', // Replace with your image URL
+          url: 'https://www.ruknaldyafa.ae/about-section',
+        }}
+        additionalMetaTags={[
+          {
+            name: 'author',
+            content: 'Rukn Al Dyafa Team',
+          },
+          {
+            name: 'keywords',
+            content:
+              'top-rated beverage catering UAE, best drink catering services in Dubai, luxury catering UAE, premium catering services UAE, beverage services UAE, wedding catering UAE, corporate event catering UAE, catering services in Dubai, bespoke catering services, elegant catering solutions, birthday party catering services UAE, tailored catering UAE',
+          },
+        ]}
+      />
+      
       <Navbar
         language={language}
         toggleLanguage={toggleLanguage}

@@ -1,8 +1,6 @@
-'use client'
+'use client';
 import React, { useState } from "react";
-import { useRouter  } from "next/router";
 import { MdDelete } from "react-icons/md";
-
 
 const hotBeverages = [
   "Arabic coffee | قهوة عربية",
@@ -104,15 +102,6 @@ const translations = {
   },
 };
 
-
-const Cart = ({ selectedPackage, selectedPackagePrice , language }) => {
-  const location = useRouter();
-  const formData = location.state?.formData || {};
-  const [selectedDrinks, setSelectedDrinks] = useState([]);
-  const [selectedFoodItems, setSelectedFoodItems] = useState([]);
-  const [showThankYouPopup, setShowThankYouPopup] = useState(false); // State to show the popup
-  const DRINK_PRICE = 200;
-
   const DELIVERY_CHARGES = {
     "Abu Dhabi": 300,
     "Ajman": 0,
@@ -124,36 +113,38 @@ const Cart = ({ selectedPackage, selectedPackagePrice , language }) => {
     "Umm Al Quwain": 0,
   };
 
-  const handleDrinkSelection = (drinkType, drinkName) => {
-    if (!drinkName || selectedDrinks.some((drink) => drink.name === drinkName)) return;
+
+const Cart = ({ selectedPackage = "Basic Package", selectedPackagePrice = 1000 }) => {
+  const [formData, setFormData] = useState(() => {
+    const savedData = localStorage.getItem('formData');
+    return savedData ? JSON.parse(savedData) : {};
+  });
+
+  const [selectedDrinks, setSelectedDrinks] = useState([]);
+  const [selectedFoodItems, setSelectedFoodItems] = useState([]);
+  const [selectedHotDrinks, setSelectedHotBeverage] = useState("");
+  const [selectedColdDrinks, setSelectedColdBeverage] = useState("");
+  const [selectedFood, setSelectedFood] = useState("");
+  const [foodPrice, setFoodPrice] = useState(0);
+  const [showThankYouPopup, setShowThankYouPopup] = useState(false);
+
+  const handleDrinkSelection = (type, name) => {
+    if (!name || selectedDrinks.some((drink) => drink.name === name)) return;
+    setSelectedDrinks((prev) => [...prev, { type, name, price: 200 }]);
+  };
+
+  const handleFoodChange = (event) => {
+    const selectedItem = foodItems.find(item => item.name === event.target.value);
+    setSelectedFood(event.target.value);
+    setFoodPrice(selectedItem ? selectedItem.price : 0);
+  };
+
+  const removeDrink = (index) => setSelectedDrinks((prev) => prev.filter((_, i) => i !== index));
+  const removeFoodItem = (index) => setSelectedFoodItems((prev) => prev.filter((_, i) => i !== index));
+
+  const language = 'english';
+  const t = translations[language] || translations.english;
   
-    setSelectedDrinks((prevDrinks) => [
-      ...prevDrinks,
-      { type: drinkType, name: drinkName, price: DRINK_PRICE },
-    ]);
-  };
-  
-  const handleFoodSelection = (foodName) => {
-    const foodItem = foodItems.find((item) => item.name === foodName);
-    if (!foodItem || selectedFoodItems.some((food) => food.name === foodName)) return;
-
-    setSelectedFoodItems((prevFood) => [...prevFood, foodItem]);
-  };
-
-  const removeDrink = (indexToRemove) => {
-    setSelectedDrinks((prevDrinks) =>
-      prevDrinks.filter((_, index) => index !== indexToRemove)
-    );
-  };
-
-  const removeFoodItem = (indexToRemove) => {
-    setSelectedFoodItems((prevFood) =>
-      prevFood.filter((_, index) => index !== indexToRemove)
-    );
-  };
- 
-    // Dynamically get the translation for the current language
-    const t = translations[language] || translations.english;
 
   const calculateTotal = () => {
     const drinksTotal = selectedDrinks.reduce((sum, drink) => sum + drink.price, 0);
@@ -164,46 +155,45 @@ const Cart = ({ selectedPackage, selectedPackagePrice , language }) => {
 
   const handleOrderSubmit = () => {
     setShowThankYouPopup(true);
-      const totalAmount = calculateTotal();
-      const message = `
-    Hello, I would like to place an order. Here are the details:
-    
-    *Selected Package:* 
-    - Package Title: ${selectedPackage || "N/A"}
-    - Package Price: ${selectedPackagePrice || 0} AED
-
-    *Selected Food Items:*
-    ${selectedFoodItems.map((food, index) => `- ${food.name} (${food.price} AED)`).join("\n")}
-    
-    *Selected Drinks:*
-    ${selectedDrinks.map((drink, index) => `- ${drink.type}: ${drink.name} (${drink.price} AED)`).join("\n")}   
-    
-    *Client Information:*
-    - Name: ${formData.name || "N/A"}
-    - Email: ${formData.email || "N/A"}
-    - City: ${formData.city || "N/A"}
-    - Phone: ${formData.countryCode ? `${formData.countryCode} ${formData.phone}` : formData.phone || "N/A"}
-    - Guests: ${formData.guests || "N/A"}
-    - Event Date: ${formData.eventDate || "N/A"}
-
-    *Delivery Charge:* ${DELIVERY_CHARGES[formData.city] || 0} AED
-    
-    *Total Amount:* ${totalAmount} AED
-      `.trim();
-    
-      // Encode the message for use in a URL
-      const encodedMessage = encodeURIComponent(message);
-    
-      // WhatsApp API link
-      const whatsappLink = `https://wa.me/+917045992776?text=${encodedMessage}`;
-    
-      // Redirect to WhatsApp
-      window.open(whatsappLink, "_blank");
-  };
+    const totalAmount = calculateTotal();
+    const message = `
+      Hello, I would like to place an order. Here are the details:
+      
+      *Selected Package:* 
+      - Package Title: ${selectedPackage || "N/A"}
+      - Package Price: ${selectedPackagePrice || 0} AED
   
+      *Selected Food Items:*
+      ${selectedFoodItems.map((food, index) => `- ${food.name} (${food.price} AED)`).join("\n")}
+      
+      *Selected Drinks:*
+      ${selectedDrinks.map((drink, index) => `- ${drink.type}: ${drink.name} (${drink.price} AED)`).join("\n")}   
+      
+      *Client Information:*
+      - Name: ${formData.name || "N/A"}
+      - Email: ${formData.email || "N/A"}
+      - City: ${formData.city || "N/A"}
+      - Phone: ${formData.countryCode ? `${formData.countryCode} ${formData.phone}` : formData.phone || "N/A"}
+      - Guests: ${formData.guests || "N/A"}
+      - Event Date: ${formData.eventDate || "N/A"}
+
+      *Delivery Charge:* ${DELIVERY_CHARGES[formData.city] || 0} AED
+  
+      *Total Amount:* ${totalAmount} AED
+    `.trim();
+    
+    // Encode the message for use in a URL
+    const encodedMessage = encodeURIComponent(message);
+
+    // WhatsApp API link
+    const whatsappLink = `https://wa.me/+917045992776?text=${encodedMessage}`;
+
+    // Redirect to WhatsApp
+    window.open(whatsappLink, "_blank");
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 p-4 flex items-center justify-center" id="cart">
-    
       <div className="hidden md:block h-full w-full p-8">
       <img 
         src="https://i.pinimg.com/736x/36/db/a0/36dba0a1d51aab032bb4855f8075b8c3.jpg" 
@@ -213,187 +203,138 @@ const Cart = ({ selectedPackage, selectedPackagePrice , language }) => {
       <div className="max-w-6xl w-full bg-gray-50 rounded-lg py-8 px-3 md:p-8">
         <h1 className="text-2xl font-bold text-center">{t.header}</h1>
 
-        {/* Drink Selection */}
-      <div className="flex justify-between items-center my-6">
-        <div className="w-1/2 mr-4">
-          <label htmlFor="hotDrink" className="block text-sm font-medium mb-2">
-            {t.HotDrink}
-          </label>
+      <div className="mt-4">
+        <p><span className="font-semibold">Name:</span> {formData.name || "No name provided"}</p>
+        <p><span className="font-semibold">Email:</span> {formData.email || "No email provided"}</p>
+        <p><span className="font-semibold">City:</span> {formData.city || "No city selected"}</p>
+        <p><span className="font-semibold">Phone:</span> {formData.phone || "No phone number"}</p>
+        <p><span className="font-semibold">Number of Guests:</span> {formData.guests || "No Guests"}</p>
+        <p><span className="font-semibold">Event Date:</span> {formData.eventDate || "No phone number"}</p>
+      </div>
+
+      {/* Beverages Dropdowns */}
+      <div className="mt-6 flex justify-between">
+        <div className="w-1/2 pr-2">
+          <label className="block font-semibold">Hot Beverage:</label>
           <select
-            id="hotDrink"
-            onChange={(e) => handleDrinkSelection("Hot Drink", e.target.value)}
-            className="border border-gray-300 rounded-md px-3 py-2 w-full"
+            value={selectedHotDrinks}
+            onChange={(e) => handleDrinkSelection("Hot Beverage", e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded"
           >
-            <option value="">-- Select --</option>
-            {hotBeverages.map((drink) => (
-              <option key={drink} value={drink}>
-                {drink}
+            <option value="">Select Hot Drinks</option>
+            {hotBeverages.map((beverage) => (
+              <option key={beverage} value={beverage}>
+                {beverage}
               </option>
             ))}
           </select>
         </div>
-        <div className="w-1/2">
-          <label htmlFor="coldDrink" className="block text-sm font-medium mb-2">
-          {t.ColdDrink}
-          </label>
+        <div className="w-1/2 pl-2">
+          <label className="block font-semibold">Cold Beverage:</label>
           <select
-            id="coldDrink"
-            onChange={(e) => handleDrinkSelection("Cold Drink", e.target.value)}
-            className="border border-gray-300 rounded-md px-3 py-2 w-full"
+            value={selectedColdDrinks}
+            onChange={(e) => handleDrinkSelection("Cold Beverage", e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded"
           >
-            <option value="">-- Select --</option>
-            {coldBeverages.map((drink) => (
-              <option key={drink} value={drink}>
-                {drink}
+            <option value="">Select Cold Drinks</option>
+            {coldBeverages.map((beverage) => (
+              <option key={beverage} value={beverage}>
+                {beverage}
               </option>
             ))}
           </select>
         </div>
       </div>
 
-       {/* Food Section */}
-       <div className="mb-6">
-          <h2 className="text-md font-semibold mb-2">{t.fooditem}</h2>
-          <select
-            onChange={(e) => handleFoodSelection(e.target.value)}
-            className="border border-gray-300 rounded-md px-3 py-2 w-full"
-          >
-            <option value="">-- Select --</option>
-            {foodItems.map((food) => (
-              <option key={food.name} value={food.name}>
-                {food.name} - {food.price} AED
-              </option>
-            ))}
-          </select>
-        </div>
-        
-      
-                {/* Selected Package Details */}
-        <div className="border rounded-lg p-4 my-6 bg-gray-50">
-          <h2 className="text-xl font-semibold mb-4">{t.select}</h2>
+      {/* Food Dropdown with Price */}
+      <div className="mt-6">
+        <label className="block font-semibold">Food Item:</label>
+        <select
+          value={selectedFood}
+          onChange={handleFoodChange}
+          className="w-full p-2 border border-gray-300 rounded"
+        >
+          <option value="">Select Food Item</option>
+          {foodItems.map((food) => (
+            <option key={food.name} value={food.name}>
+              {food.name}
+            </option>
+          ))}
+        </select>
+        {selectedFood && foodPrice > 0 && (
+          <p className="mt-2 text-gray-700">
+            Price: <span className="font-semibold">{foodPrice} AED</span>
+          </p>
+        )}
+      </div>
 
-          {/* Display Package Details Only if Available */}
-          {selectedPackage && selectedPackagePrice && (
-            <>
-              <div className="flex justify-between border-b pb-2">
-                <span className="font-medium">{t.title}:</span>
-                <span>{selectedPackage}</span>
-              </div>
-              <div className="flex justify-between border-b pb-2">
-                <span className="font-medium">{t.price}:</span>
-                <span>{selectedPackagePrice} AED</span>
-              </div>
-            </>
-          )}
+      {/* Selected Package and Drinks/Food */}
+      <div className="mt-6">
+        <h3 className="font-semibold">Selected Package:</h3>
+        <p>{selectedPackage} - {selectedPackagePrice} AED</p>
+      </div>
+      <div className="mt-6">
+        <h3 className="font-semibold">Selected Drinks:</h3>
+        {selectedDrinks.map((drink, index) => (
+          <div key={index} className="flex justify-between">
+            <span>{drink.type}: {drink.name}</span>
+            <span>{drink.price} AED</span>
+            <button onClick={() => removeDrink(index)} className="text-red-500">
+              <MdDelete />
+            </button>
+          </div>
+        ))}
+      </div>
+      <div className="mt-6">
+        <h3 className="font-semibold">Selected Food Items:</h3>
+        {selectedFoodItems.map((food, index) => (
+          <div key={index} className="flex justify-between">
+            <span>{food.name}</span>
+            <span>{food.price} AED</span>
+            <button onClick={() => removeFoodItem(index)} className="text-red-500">
+              <MdDelete />
+            </button>
+          </div>
+        ))}
+      </div>
 
-          {/* Display Selected Drinks, if Any */}
-          {selectedDrinks.length > 0 && (
-            <div className="mb-4">
-              <h3 className="font-semibold mb-2">{t.drinks}:</h3>
-              {selectedDrinks.map((drink, index) => (
-                <div key={index} className="flex justify-between items-center border-b pb-2">
-                  <div>
-                    <span>{drink.type}: {drink.name}</span>
-                  </div>
-                  <div className="flex items-center">
-                    <span>{drink.price} AED</span>
-                    <button
-                      className="ml-4 text-red-500 font-bold hover:text-red-700"
-                      onClick={() => removeDrink(index)}
-                    >
-                      <MdDelete />
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Display Selected Food Items, if Any */}
-          {selectedFoodItems.length > 0 && (
-            <div className="mb-4">
-              <h3 className="font-semibold mb-2">{t.selectedfood}:</h3>
-              {selectedFoodItems.map((food, index) => (
-                <div key={index} className="flex justify-between items-center border-b pb-2">
-                  <div>{food.name}</div>
-                  <div className="flex items-center">
-                    <span>{food.price} AED</span>
-                    <button
-                      className="ml-4 text-red-500 font-bold hover:text-red-700"
-                      onClick={() => removeFoodItem(index)}
-                    >
-                      <MdDelete />
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        
-        {/* Delivery Charges */}
-        <div className="flex justify-between mt-4 text-lg">
-          <span>{t.Charges}:</span>
+      {/* Delivery Charges */}
+      <div className="flex justify-between mt-4 text-lg">
+          <span>{t.Charges || "Delivery Charges"}:</span>
           <span>
             {DELIVERY_CHARGES[formData.city] === 0 ? "Free" : `${DELIVERY_CHARGES[formData.city]} AED`}
           </span>
         </div>
 
-        <div className="flex justify-between mt-4 text-lg font-bold">
-          <span>{t.total}:</span>
-          <span>{calculateTotal()} AED</span>
-        </div>        
-        
-        {/* Client Entries Section */}
-        <div className="border rounded-lg p-4 my-6 bg-gray-50">
-          <h2 className="text-xl font-semibold mb-4">{t.clientEntries}</h2>
-          <div className="space-y-2">
-            {[
-              { label: t.name, value: formData.name },
-              { label: t.email, value: formData.email }, // No truncation
-              { label: t.city, value: formData.city },
-              { label: t.phone, value: formData.countryCode ? `${formData.countryCode} ${formData.phone}` : formData.phone },
-              { label: t.guests, value: formData.guests },
-              { label: t.eventDate, value: formData.eventDate },
-            ].map((item, index) => (
-              <div key={index} className="flex justify-between border-b pb-2">
-                <span className="font-medium">{item.label}:</span>
-                <span className="truncate max-w-xs md:max-w-full">
-                  {item.value || "N/A"}
-                </span>
-              </div>
-            ))}
+      {/* Total Price */}
+      <div className="mt-6 flex justify-between font-bold">
+        <span>Total Amount:</span>
+        <span>{calculateTotal()} AED</span>
+      </div>
+
+      {/* Submit Button */}
+      <button
+        onClick={handleOrderSubmit}
+        className="w-full py-3 bg-blue-500 text-white rounded-lg mt-6"
+      >
+        Place Order
+      </button>
+
+      {/* Thank You Popup */}
+      {showThankYouPopup && (
+        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 className="text-2xl font-semibold mb-4">Thank You for Your Order!</h2>
+            <button
+              className="mt-4 bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700"
+              onClick={() => setShowThankYouPopup(false)}
+            >
+              Close
+            </button>
           </div>
         </div>
-
-        {/* <div className="text-left my-5 rounded-lg">
-        <p><strong>Special Offer: </strong><br /> Order Package 3 or higher and get a complimentary Beverage or Perfume with your order.</p>
-      </div> */}
-
-        {/* Place Order Button */}
-        <button
-          className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-green-600"
-          onClick={handleOrderSubmit}>
-          {t.order}
-        </button>
-
-        {/* Thank You Popup */}
-        {showThankYouPopup && (
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
-            <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-              <h2 className="text-2xl font-semibold mb-4">{t.thankYouTitle}</h2>
-              <p>{t.thankYouMessage}</p>
-              <button
-                className="mt-4 bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700"
-                onClick={() => setShowThankYouPopup(false)}
-              >
-                Close
-              </button>
-            </div>
-          </div>  
-        )}
-      </div>
+      )}
+    </div>
     </div>
   );
 };

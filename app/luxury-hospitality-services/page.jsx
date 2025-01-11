@@ -3,6 +3,7 @@ import React, { Suspense, useState } from "react";
 import OrderForm from "@/components/OrderForm";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { NextSeo } from 'next-seo';
 
 const LuxuryServices = () => {
   const translations = {
@@ -27,6 +28,41 @@ const LuxuryServices = () => {
 
   return (
     <div>
+       <NextSeo
+        title="Rukn Al Dyafa - Luxury Services & Experiences"
+        description="Indulge in exclusive luxury catering services in the UAE. From signature drinks to gourmet treats, we create memorable dining experiences."
+        canonical="https://www.ruknaldyafa.ae/luxury-hospitality-services"
+        openGraph={{
+          url: 'https://www.ruknaldyafa.ae/luxury-hospitality-services',
+          title: 'Rukn Al Dyafa - Service',
+          description:
+            'Indulge in exclusive luxury catering services in the UAE. From signature drinks to gourmet treats, we create memorable dining experiences.',
+          images: [
+            {
+              url: 'https://i.pinimg.com/736x/22/f8/4f/22f84fbacc70ee68a07f0efa9b9dca40.jpg',
+              width: 800,
+              height: 600,
+              alt: 'Luxury Services - Rukn Al Dyafa',
+            },
+          ],
+          site_name: 'Rukn Al Dyafa',
+        }}
+        twitter={{
+          cardType: 'summary_large_image',
+          title: 'Rukn Al Dyafa - Service',
+          description:
+            'Indulge in exclusive luxury catering services in the UAE. From signature drinks to gourmet treats, we create memorable dining experiences.',
+          image: 'https://i.pinimg.com/736x/22/f8/4f/22f84fbacc70ee68a07f0efa9b9dca40.jpg',
+        }}
+        additionalMetaTags={[
+          {
+            name: 'author',
+            content: 'Rukn Al Dyafa Team',
+          },
+        ]}
+        openGraphType="website"
+      />
+
       <Navbar
         language={language}
         toggleLanguage={toggleLanguage}

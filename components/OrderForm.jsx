@@ -1,3 +1,4 @@
+OrderForm:
 'use client'
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -42,7 +43,11 @@ const OrderForm = ({ language = "english" }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    router.push('/checkout', { query: { formData: JSON.stringify(formData) } }); // Pass formData to Checkout page
+
+    // Save formData to localStorage
+    localStorage.setItem('formData', JSON.stringify(formData));
+
+    router.push('/checkout'); // Proceed to Checkout or another page
   };
 
   const renderInput = (label, name, type = 'text', additionalProps = {}) => (
