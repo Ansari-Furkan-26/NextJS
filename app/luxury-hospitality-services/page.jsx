@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import OrderForm from "@/components/OrderForm";
+import Contact from "@/components/ContactForm";
 
 const LuxuryServices = ({ language = "english" }) => {
   const translations = {
@@ -46,6 +47,7 @@ const LuxuryServices = ({ language = "english" }) => {
       {/* Suspense wrapper to load lazy components */}
       <Suspense fallback={<div>Loading...</div>}>
         {/* <OrderForm language={language} /> */}
+        <Contact />
       </Suspense>
     </div>
   );

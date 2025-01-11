@@ -43,7 +43,7 @@ export default function HomePage() {
   return (
     <div className="relative bg-black min-h-screen flex flex-col">
       {/* Mobile View: Background Marquee */}
-      <div className="absolute inset-0 md:hidden ">
+      <div className="absolute inset-0 md:hidden overflow-x-scroll">
         {images.map((src, index) => (
           <div
             key={index}

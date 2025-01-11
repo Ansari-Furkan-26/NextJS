@@ -1,20 +1,22 @@
-import React from "react";
+import React from 'react';
+import fs from 'fs';
+import path from 'path';
 
-// Dynamically import all images from the '/public/images' directory
-const importImages = () => {
-    const images = [];
-    const context = require.context("../public/images", false, /\.(jpe?g|png|gif|webp)$/);
-    context.keys().forEach((key, index) => {
-      images.push({
-        id: index + 1,
-        src: `/images${key.replace("./", "/")}`, // Adjusting the path for use in public
-      });
-    });
-    return images;
-  };
-  
+// This is a React Server Component that fetches image data
+export default async function GalleryPage() {
+  // Read the image files from the public/images directory
+  const imagesDir = path.join(process.cwd(), 'public/images');
+  const imageFiles = fs.readdirSync(imagesDir);
 
-const Gallery = ({ language = "english" }) => {
+  // Filter out valid image file extensions and map them to image objects
+  const images = imageFiles
+    .filter((file) => /\.(jpe?g|png|gif|webp)$/i.test(file))
+    .map((file, index) => ({
+      id: index + 1,
+      src: `/images/${file}`,
+      alt: `Image ${index + 1}`,
+    }));
+
   // Translations for dual language support
   const translations = {
     english: {
@@ -31,16 +33,8 @@ const Gallery = ({ language = "english" }) => {
     }
   };
 
-  // Get the dynamically imported images
-  const images = importImages();
-
-  // Map over the array to create gallery image objects
-  const galleryImages = images.map((image) => ({
-    id: image.id,
-    src: image.src,
-    title: `${translations[language].sectionTitle} ${image.id}`,
-    description: `Description for Project ${image.id}`,
-  }));
+  // Define the language you want to use (default is "english")
+  const language = "english"; // You can dynamically change this
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -57,7 +51,7 @@ const Gallery = ({ language = "english" }) => {
         </div>
       </section>
 
-      {/* Header */}
+      {/* Section Header */}
       <header className="flex flex-col items-center justify-center text-center text-gray-800 pt-14 pb-8">
         <h1 className="text-3xl font-bold mb-2">{translations[language].sectionTitle}</h1>
         <h2 className="px-2 text-sm max-w-3xl lg:text-md text-gray-600">
@@ -66,24 +60,18 @@ const Gallery = ({ language = "english" }) => {
       </header>
 
       {/* Image Gallery */}
-      <div
-        className="pb-12 px-4 lg:px-32 container mx-auto columns-2 sm:columns-3 md:columns-4 lg:columns-5 xl:columns-5 gap-3"
-        id="Gallery">
-        {galleryImages.map((image) => (
-          <div key={image.id} className="mb-4 break-inside-avoid rounded-lg overflow-hidden">
-            <a href={image.src} target="_blank" rel="noopener noreferrer">
-              <img
-                src={image.src}
-                alt={image.title}
-                loading="lazy"
-                className="w-full rounded-lg hover:shadow-lg hover:opacity-90 transition-all"
-              />
-            </a>
+      <div className="gallery grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 px-4">
+        {images.map((image) => (
+          <div key={image.id} className="mb-4 rounded-lg overflow-hidden">
+            <img
+              src={image.src}
+              alt={image.alt}
+              loading="lazy"
+              className="w-full rounded-lg hover:shadow-lg hover:opacity-90 transition-all"
+            />
           </div>
         ))}
       </div>
     </div>
   );
-};
-
-export default Gallery;
+}

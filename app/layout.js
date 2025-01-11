@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from "react";
+import React, { useState } from "react";  // Import useEffect
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -35,7 +35,8 @@ export default function RootLayout({ children }) {
           language={language}
           toggleLanguage={toggleLanguage}
           mobileMenuOpen={mobileMenuOpen}
-          setMobileMenuOpen={setMobileMenuOpen}/>
+          setMobileMenuOpen={setMobileMenuOpen}
+        />
         <main>{children}</main>
         <Footer />
       </body>
