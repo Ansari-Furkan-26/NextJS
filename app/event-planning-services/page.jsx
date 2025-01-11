@@ -2,7 +2,7 @@
 import React, { useState } from "react"; // Ensure useState is imported
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { NextSeo } from 'next-seo';
+// import { NextSeo } from 'next-seo';
 
 const headerImage = 'https://i.pinimg.com/736x/c0/88/59/c0885989e1a17079e0e8ec5d5c5138df.jpg';
 
@@ -51,7 +51,7 @@ function Eventpg() {
 
   return (
     <div className="bg-gray-100 min-h-screen" id="ExploreMoment">
-      <NextSeo
+      {/* <NextSeo
         title="Rukn Al Dyafa - Premium Event Planning & Management Services in UAE"
         description="From weddings to corporate events, we provide bespoke catering and beverage solutions in the UAE. Tailored to perfection for any occasion."
         canonical="https://www.ruknaldyafa.ae/events"
@@ -90,8 +90,7 @@ function Eventpg() {
               'birthday party beverage services UAE, wedding beverage catering Dubai, corporate event drink services UAE, event catering UAE, luxury event drinks catering Dubai, engagement party beverage setup UAE, wedding catering UAE, corporate beverage services',
           },
         ]}
-      />
-      
+      /> */}
       <Navbar
         language={language}
         toggleLanguage={toggleLanguage}
