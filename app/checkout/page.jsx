@@ -18,7 +18,6 @@ const Checkout = () => {
   const scrollToCart = () => {
     document.getElementById("cart")?.scrollIntoView({ behavior: "smooth" });
   };
-
   
   const [language, setLanguage] = useState("english");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -76,11 +75,11 @@ const Checkout = () => {
       <PackShowcase2 onSelectPackage={handlePackageSelection} language={language} />
 
       {/* Cart Section */}
-      <Cart
+      {/* <Cart
         selectedPackage={selectedPackage}
         selectedPackagePrice={selectedPackagePrice}
         language={language}
-      />
+      /> */}
 
       {/* Floating Button */}
       {selectedPackage && (

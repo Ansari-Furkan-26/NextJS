@@ -120,6 +120,7 @@ const Cart = ({ selectedPackage = "Basic Package", selectedPackagePrice = 1000 }
     return savedData ? JSON.parse(savedData) : {};
   });
 
+
   const [selectedDrinks, setSelectedDrinks] = useState([]);
   const [selectedFoodItems, setSelectedFoodItems] = useState([]);
   const [selectedHotDrinks, setSelectedHotBeverage] = useState("");
