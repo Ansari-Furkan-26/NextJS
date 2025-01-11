@@ -54,8 +54,6 @@ const importedImages = [
   { src: "/images/50.JPG", alt: "Image 50" },
 ];
 
-
-
 const ImageGallery = ({ language = "english" }) => {
     const translations = {
       english: {
@@ -77,14 +75,13 @@ const ImageGallery = ({ language = "english" }) => {
         style={{ whiteSpace: "nowrap" }}
       >
         {importedImages.map((image, index) => (
-  <img
-    key={index}
-    src={image.src}
-    alt={image.alt}
-    className="max-w-sm w-80 object-cover rounded-lg transition-transform duration-300 ease-in-out hover:scale-105"
-  />
-))}
-
+        <img
+          key={index}
+          src={image.src}
+          alt={image.alt}
+          className="max-w-sm w-80 object-cover rounded-lg transition-transform duration-300 ease-in-out hover:scale-105"
+        />
+      ))}
       </div>
     </div>
     );

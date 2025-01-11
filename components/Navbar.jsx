@@ -62,10 +62,11 @@ const Navbar = ({
     <header className="absolute inset-x-0 top-0 z-50">
       {/* Mobile Banner */}
       <div className="block lg:hidden text-center pt-3">
+      <div className="absolute inset-0 h-12 bg-black opacity-40 transition-opacity"></div>
         <h1 className="text-white text-sm font-semibold drop-shadow-lg">{t.banner}</h1>
       </div>
 
-      <nav aria-label="Global" className="flex items-center justify-between p-4 lg:px-8">
+      <nav aria-label="Global" className="flex items-center justify-between p-2 lg:px-8">
         {/* Logo */}
         <div className="flex lg:flex-1">
           <Link href="/" className="flex items-center">
@@ -73,8 +74,8 @@ const Navbar = ({
               src={logoPath}
               alt={language === "english" ? "English Logo" : "Arabic Logo"}
               width={120}
-              height={50}
-              className="object-contain"
+              height={40}
+              className="object-contain h-16 w-auto"
               priority
             />
           </Link>
@@ -164,16 +165,15 @@ const Navbar = ({
       {/* Mobile Menu */}
       <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
         <div className="fixed inset-0 z-50" />
-        <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-brown-900 px-6 py-6 sm:max-w-sm">
+        <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 px-6 py-6 sm:max-w-sm -mr-24">
           <div className="flex items-center justify-between">
             <Link href="/" className="-mx-6 flex items-center">
-              <Image src={logoPath} alt="Rukn Al Dyafa Logo" width={100} height={50} />
+              <Image src={logoPath} alt="Rukn Al Dyafa Logo" width={100} height={50} className="h-10 w-auto"/>
             </Link>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
-              className="-m-2.5 p-2.5 text-white"
-            >
+              className="-m-2.5 p-2.5 text-white right-6 fixed">
               <XMarkIcon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
@@ -184,7 +184,7 @@ const Navbar = ({
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block rounded-lg px-3 py-2 text-base font-semibold text-white hover:bg-gray-700"
+                  className="block rounded-lg px-3 py-2 text-base font-semibold text-gray-100 hover:bg-gray-700"
                 >
                   {item.name}
                 </Link>
@@ -193,10 +193,9 @@ const Navbar = ({
             <div className="py-6">
               <a
                 href="https://wa.me/+917045992776"
-                className="block rounded-lg px-3 py-2.5 text-base font-semibold text-white hover:bg-gray-700"
+                className="block rounded-lg px-3 py-2.5 text-base font-semibold text-gray-100 hover:bg-gray-700"
                 target="_blank"
-                rel="noopener noreferrer"
-              >
+                rel="noopener noreferrer">
                 +917045992776
               </a>
             </div>

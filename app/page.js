@@ -41,22 +41,37 @@ export default function HomePage() {
   };
 
   return (
-    <div className="relative bg-black h-screen px-4 sm:px-8">
-      {/* Background Image */}
-      <div className="absolute inset-0">
+    <div className="relative bg-black min-h-screen flex flex-col">
+      {/* Mobile View: Background Marquee */}
+      <div className="absolute inset-0 md:hidden ">
+        {images.map((src, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ${index === currentImage ? "opacity-100" : "opacity-0"}`}>
+            <img
+              src={src}
+              alt="Luxury hospitality services in UAE"
+              className="w-full h-[721px] object-cover opacity-50"  // limit the height
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop View: Background Image */}
+      <div className="absolute hidden md:block inset-0">
         <img
           src="https://png.pngtree.com/thumb_back/fw800/background/20240125/pngtree-arabic-tea-coffee-service-golden-cups-ramadan-holidays-decoration-image_15567931.png"
           alt="Catering Background"
-          className="w-full h-full object-cover opacity-50"
+          className="w-full h-screen object-cover opacity-50"  // Use full height of screen
         />
       </div>
-      <div className="relative text-left md:text-center text-white flex flex-col items-start md:items-center justify-center h-full">
+
+      <div className="relative text-left md:text-center text-white px-4 py-48 flex flex-col items-start md:items-center justify-center flex-grow">
         <motion.h1
           className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight max-w-4xl"
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
+          transition={{ duration: 0.8 }}>
           {t.heading}
         </motion.h1>
 
@@ -64,8 +79,7 @@ export default function HomePage() {
           className="mt-4 text-sm sm:text-lg md:text-xl italic max-w-2xl"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
+          transition={{ duration: 0.6, delay: 0.2 }}>
           {t.paragraph}
         </motion.p>
 
@@ -73,8 +87,7 @@ export default function HomePage() {
           <motion.button
             className="mt-6 bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-6 rounded shadow-lg transition-all"
             whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
+            whileTap={{ scale: 0.9 }}>
             {t.bookNow}
           </motion.button>
         </a>
@@ -111,8 +124,7 @@ export default function HomePage() {
       <BlogSection />
       <FeaturedArtworks />
       <Form />
-      <FAQs />
-      <Footer />
+      {/* <FAQs /> */}
     </div>
   );
 }

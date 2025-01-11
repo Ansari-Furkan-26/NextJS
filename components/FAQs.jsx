@@ -137,4 +137,3 @@ const FAQs = ({ language = 'english' }) => {
 };
 
 export default FAQs;
-
