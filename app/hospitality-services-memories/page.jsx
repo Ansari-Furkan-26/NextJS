@@ -41,7 +41,7 @@ export default function GalleryPage() {
 
   return (
     <div className="bg-gray-100 min-h-screen">
-      <NextSeo
+      {/* <NextSeo
         title="Rukn Al Dyafa - Luxury Event Planning & Management Services for guests"
         description="Celebrate life’s precious moments with our elegant catering and beverage services in the UAE. Perfect for weddings, parties, and special events."
         canonical="https://www.ruknaldyafa.ae/capture-moments"
@@ -75,7 +75,7 @@ export default function GalleryPage() {
           },
         ]}
         openGraphType="website"
-      />
+      /> */}
       <Navbar
         language={language}
         toggleLanguage={toggleLanguage}

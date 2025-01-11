@@ -28,7 +28,7 @@ const LuxuryServices = () => {
 
   return (
     <div>
-       <NextSeo
+       {/* <NextSeo
         title="Rukn Al Dyafa - Luxury Services & Experiences"
         description="Indulge in exclusive luxury catering services in the UAE. From signature drinks to gourmet treats, we create memorable dining experiences."
         canonical="https://www.ruknaldyafa.ae/luxury-hospitality-services"
@@ -61,7 +61,7 @@ const LuxuryServices = () => {
           },
         ]}
         openGraphType="website"
-      />
+      /> */}
 
       <Navbar
         language={language}

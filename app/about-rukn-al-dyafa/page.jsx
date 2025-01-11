@@ -29,7 +29,7 @@ const AboutSection = () => {
 
   return (
     <div className="bg-gray-100 min-h-screen" id="ExploreMoment">
-      <NextSeo
+      {/* <NextSeo
         title="Rukn Al Dyafa - Experience in Luxury, Weddings & Corporate Events"
         description="Learn more about our commitment to delivering premium catering and beverage services. We bring elegance and taste to your events in the UAE."
         canonical="https://www.ruknaldyafa.ae/about-section"
@@ -68,7 +68,7 @@ const AboutSection = () => {
               'top-rated beverage catering UAE, best drink catering services in Dubai, luxury catering UAE, premium catering services UAE, beverage services UAE, wedding catering UAE, corporate event catering UAE, catering services in Dubai, bespoke catering services, elegant catering solutions, birthday party catering services UAE, tailored catering UAE',
           },
         ]}
-      />
+      /> */}
       
       <Navbar
         language={language}
