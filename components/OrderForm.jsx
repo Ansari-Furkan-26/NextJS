@@ -1,5 +1,4 @@
-OrderForm:
-'use client'
+'use client';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -44,8 +43,10 @@ const OrderForm = ({ language = "english" }) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
 
-    // Save formData to localStorage
-    localStorage.setItem('formData', JSON.stringify(formData));
+    // Save formData to localStorage only in the browser
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('formData', JSON.stringify(formData));
+    }
 
     router.push('/checkout'); // Proceed to Checkout or another page
   };
