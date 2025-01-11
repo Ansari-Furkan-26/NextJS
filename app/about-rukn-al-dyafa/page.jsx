@@ -6,6 +6,7 @@ import About from '@/components/About';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer"; 
 import { NextSeo } from 'next-seo';
+import Head from 'next/head';
 
 const AboutSection = () => {
   const translations = {
@@ -69,6 +70,12 @@ const AboutSection = () => {
           },
         ]}
       /> */}
+       <Head>
+        <meta name="description" content="Page-specific description" />
+        <meta property="og:title" content="Rukn Al Dyafa - Experience in Luxury, Weddings & Corporate Events" />
+        <meta property="og:description" content="Page-specific description" />
+        {/* Other social tags */}
+      </Head>
       
       <Navbar
         language={language}

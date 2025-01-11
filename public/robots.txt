@@ -1,3 +1,10 @@
-    User-agent: *
-Allow: /
-Sitemap: https://www.yourdomain.com/sitemap.xml
+# robots.txt for https://www.ruknaldyafa.store
+
+User-agent: *
+Disallow: /admin/
+Disallow: /login/
+Disallow: /checkout/
+Disallow: /cart/
+Disallow: /account/
+
+Sitemap: https://www.ruknaldyafa.store/sitemap.xml

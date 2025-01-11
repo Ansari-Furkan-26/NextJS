@@ -114,20 +114,26 @@ const translations = {
   };
 
 
-const Cart = ({ selectedPackage = "Basic Package", selectedPackagePrice = 1000 }) => {
-  const [formData, setFormData] = useState(() => {
-    if (typeof window !== "undefined") {
-      const savedData = localStorage.getItem('formData');
-      return savedData ? JSON.parse(savedData) : {};
-    }
-    return {}; // Default value when rendering on the server
-  });
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem('formData', JSON.stringify(formData));
-    }
-  }, [formData]);
+  const Cart = ({ selectedPackage = "Basic Package", selectedPackagePrice = 1000 }) => {
+    const [formData, setFormData] = useState({});
+    const [isClient, setIsClient] = useState(false);
+  
+    useEffect(() => {
+      setIsClient(true); // Mark that client-side rendering has occurred
+    }, []);
+  
+    useEffect(() => {
+      if (isClient) {
+        const savedData = localStorage.getItem('formData');
+        setFormData(savedData ? JSON.parse(savedData) : {});
+      }
+    }, [isClient]);
+  
+    useEffect(() => {
+      if (isClient) {
+        localStorage.setItem('formData', JSON.stringify(formData));
+      }
+    }, [formData, isClient]);
 
   const [selectedDrinks, setSelectedDrinks] = useState([]);
   const [selectedFoodItems, setSelectedFoodItems] = useState([]);
