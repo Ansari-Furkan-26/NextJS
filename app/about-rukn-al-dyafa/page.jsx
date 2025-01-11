@@ -1,12 +1,13 @@
 'use client';
 
-import React, { useEffect } from "react";
+import React, { useState  } from "react";
 import About from '@/components/About';
 import Gallery from '@/components/HeroGallery';
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 
-const AboutSection = ({ language = "english" }) => {
+const AboutSection = () => {
   const translations = {
     english: {
       header: "Capture the Moment",
@@ -18,8 +19,22 @@ const AboutSection = ({ language = "english" }) => {
     }
   };
 
+   const [language, setLanguage] = useState("english");
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+    const toggleLanguage = () => {
+      setLanguage((prev) => (prev === "english" ? "arabic" : "english"));
+    };
+  
+
   return (
     <div className="bg-gray-100 min-h-screen" id="ExploreMoment">
+      <Navbar
+        language={language}
+        toggleLanguage={toggleLanguage}
+        mobileMenuOpen={mobileMenuOpen}
+        setMobileMenuOpen={setMobileMenuOpen}
+      />
         
     {/* Background image and text about capturing moments */}
     <section
@@ -41,6 +56,7 @@ const AboutSection = ({ language = "english" }) => {
     
     <About language={language} />
     <Gallery language={language} />
+    <Footer />
   </div>
   );
 };
