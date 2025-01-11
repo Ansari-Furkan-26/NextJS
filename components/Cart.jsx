@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 
 const hotBeverages = [
@@ -116,10 +116,18 @@ const translations = {
 
 const Cart = ({ selectedPackage = "Basic Package", selectedPackagePrice = 1000 }) => {
   const [formData, setFormData] = useState(() => {
-    const savedData = localStorage.getItem('formData');
-    return savedData ? JSON.parse(savedData) : {};
+    if (typeof window !== "undefined") {
+      const savedData = localStorage.getItem('formData');
+      return savedData ? JSON.parse(savedData) : {};
+    }
+    return {}; // Default value when rendering on the server
   });
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem('formData', JSON.stringify(formData));
+    }
+  }, [formData]);
 
   const [selectedDrinks, setSelectedDrinks] = useState([]);
   const [selectedFoodItems, setSelectedFoodItems] = useState([]);
@@ -138,7 +146,13 @@ const Cart = ({ selectedPackage = "Basic Package", selectedPackagePrice = 1000 }
     const selectedItem = foodItems.find(item => item.name === event.target.value);
     setSelectedFood(event.target.value);
     setFoodPrice(selectedItem ? selectedItem.price : 0);
+  
+    // Add the selected food item to the selectedFoodItems state
+    if (selectedItem) {
+      setSelectedFoodItems(prevItems => [...prevItems, selectedItem]);
+    }
   };
+  
 
   const removeDrink = (index) => setSelectedDrinks((prev) => prev.filter((_, i) => i !== index));
   const removeFoodItem = (index) => setSelectedFoodItems((prev) => prev.filter((_, i) => i !== index));
@@ -247,18 +261,18 @@ const Cart = ({ selectedPackage = "Basic Package", selectedPackagePrice = 1000 }
         </div>
       </div>
 
-      {/* Food Dropdown with Price */}
-      <div className="mt-6">
-        <label className="block font-semibold">Food Item:</label>
+      {/* Food Section */}
+      <div className="mb-6">
+        <h2 className="text-md font-semibold mb-2">{t.fooditem}</h2>
         <select
           value={selectedFood}
           onChange={handleFoodChange}
           className="w-full p-2 border border-gray-300 rounded"
         >
-          <option value="">Select Food Item</option>
+          <option value="">-- Select --</option>
           {foodItems.map((food) => (
             <option key={food.name} value={food.name}>
-              {food.name}
+              {food.name} - {food.price} AED
             </option>
           ))}
         </select>
@@ -268,6 +282,7 @@ const Cart = ({ selectedPackage = "Basic Package", selectedPackagePrice = 1000 }
           </p>
         )}
       </div>
+
 
       {/* Selected Package and Drinks/Food */}
       <div className="mt-6">
