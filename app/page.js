@@ -118,7 +118,7 @@ export default function HomePage() {
       <Plans language={language} />
       <BlogSection language={language} />
       <FeaturedArtworks language={language} />
-      <ReviewSection />
+      <ReviewSection language={language}/>
       <Form language={language} />
       <Footer language={language} />
     </div>
