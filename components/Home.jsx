@@ -10,13 +10,13 @@ export default function HomePage({ language, toggleLanguage }) {
 
   // Define image paths
   const images = [
-    "/images/2.jpg",
+    "/2.jpg",
     "/About.jpg",
-    "/images/51.jpg",
-    "/images/49.jpg",
-    "/images/10.jpg",
+    "/51.jpg",
+    "/49.jpg",
+    "/10.jpg",
     "/home.jpg",
-    "/images/43.jpg",
+    "/43.jpg",
   ];
 
   useEffect(() => {
