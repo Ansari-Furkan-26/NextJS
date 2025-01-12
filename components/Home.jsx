@@ -29,22 +29,23 @@ export default function HomePage({ language, toggleLanguage }) {
 
   const translations = {
     english: {
-      heading: "Flavors that tell stories, \n and hospitality that inspires moments.",
+      heading: "Flavors that captivate, \n with Arabic coffee that defines hospitality.",
       paragraph:
-        "At Rukn Al Dyafa, we deliver the elegance of traditional hospitality through luxurious catering, crafting unforgettable experiences with exquisite beverages for every occasion.",
+        "At Rukn Al Dyafa, we redefine hospitality in the UAE with our luxurious Arabic coffee service and premium catering, creating unforgettable moments for every occasion.",
       bookNow: "Book Now",
-      SideQuote: "Every season there is a set for two-tours",
-      SideDesc: "Exclusive arrangements, and immersive experiences for beverage services."
+      SideQuote: "Arabic coffee, every season, every story.",
+      SideDesc: "Tailored experiences and exclusive setups for exceptional coffee service."
     },
     arabic: {
-      heading: "نكهات تروي القصص، \nوضيافة تلهم اللحظات.",
+      heading: "نكهات تأسر القلوب، \nوقهوة عربية ترسم معالم الضيافة.",
       paragraph:
-        "في ركن الضيافة، نقدم أناقة الضيافة التقليدية من خلال خدمات الضيافة الفاخرة، ونصنع تجارب لا تُنسى مع مشروبات راقية لكل مناسبة.",
+        "في ركن الضيافة، نقدم خدمات الضيافة الفاخرة مع القهوة العربية الفريدة، لنخلق لحظات لا تُنسى لكل مناسبة في الإمارات.",
       bookNow: "احجز الآن",
-      SideQuote: "في كل موسم هناك مجموعة لجولتين",
-      SideDesc: "ترتيبات حصرية وتجارب غامرة لخدمات المشروبات"
+      SideQuote: "القهوة العربية، لكل موسم وكل حكاية.",
+      SideDesc: "تجارب مصممة بعناية وترتيبات حصرية لخدمة قهوة استثنائية."
     },
   };
+  
 
   const t = translations[language];
 

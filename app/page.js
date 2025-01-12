@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -12,7 +13,7 @@ import FeaturedArtworks from "@/components/HeroGallery";
 import Home from "@/components/Home";
 import Footer from "@/components/Footer";
 import ReviewSection from "@/components/ReviewSection";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
 // Load fonts
 const geistSans = Geist({
@@ -25,8 +26,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// Dynamically import NextSeo correctly
-const NextSeo = dynamic(() => import('next-seo').then(mod => mod.NextSeo), { ssr: false });
+// Dynamically import NextSeo
+const NextSeo = dynamic(() => import("next-seo").then((mod) => mod.NextSeo), {
+  ssr: false,
+});
 
 export default function HomePage() {
   const [language, setLanguage] = useState("english");
@@ -41,7 +44,7 @@ export default function HomePage() {
     english: {
       title: "Rukn Al Dyafa | Hospitality Service",
       description:
-        "Discover premium catering, hospitality and beverage services in the UAE. We specialize in luxurious drinks and unforgettable experiences for weddings, corporate events, and private gatherings guests.",
+        "Discover premium catering, hospitality and beverage services in the UAE. We specialize in luxurious drinks and unforgettable experiences for weddings, corporate events, and private gatherings.",
       url: "https://www.ruknaldyafa.ae/",
       openGraph: {
         title: "Rukn Al Dyafa - Premium Catering Services",
@@ -86,7 +89,7 @@ export default function HomePage() {
 
   return (
     <div className={`${geistSans.variable} ${geistMono.variable}`}>
-      {/* SEO Metadata */}
+      {/* Dynamic SEO Metadata */}
       <NextSeo
         title={currentSeoData.title}
         description={currentSeoData.description}

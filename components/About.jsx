@@ -6,19 +6,19 @@ import Link from "next/link";
 const cardsContent = {
   english: [
     {
-      img: "/images/6.jpg",
+      img: "/6.jpg",
       title: "Beverage Service Experience for Guests",
       message:
         "Rukn Al Dyafa serves the finest traditional and international beverages with exceptional service, enhancing the visitor experience at every moment.",
     },
     {
-      img: "/images/4.jpg",
+      img: "/4.jpg",
       title: "Luxury Wedding Events",
       message:
         "Unique designs and exceptional service create unforgettable weddings, offering elegance and a touch of perfection for the special occasion.",
     },
     {
-      img: "/images/33.jpg",
+      img: "/33.jpg",
       title: "Business Conferences",
       message:
         "Rukn Al Dyafa provides professional hospitality services tailored to meetings and conferences, ensuring guest comfort and event success.",
@@ -26,19 +26,19 @@ const cardsContent = {
   ],
   arabic: [
     {
-      img: "/images/6.jpg",
+      img: "/6.jpg",
       title: "تجربة تقديم المشروبات للضيوف",
       message:
         "ركن الضيافة يقدم أفخر المشروبات التقليدية والدولية مع خدمة استثنائية، مما يعزز تجربة الزوار في كل لحظة.",
     },
     {
-      img: "/images/4.jpg",
+      img: "/4.jpg",
       title: "فعاليات زفاف فاخرة",
       message:
         "تصاميم فريدة وخدمة استثنائية تخلق حفلات زفاف لا تُنسى، وتضفي لمسة من الأناقة والكمال على المناسبة الخاصة.",
     },
     {
-      img: "/images/33.jpg",
+      img: "/33.jpg",
       title: "مؤتمرات الأعمال",
       message:
         "ركن الضيافة يوفر خدمات ضيافة مهنية مصممة خصيصًا للاجتماعات والمؤتمرات، مما يضمن راحة الضيوف ونجاح الفعالية.",
@@ -50,7 +50,7 @@ const aboutContent = {
   english: {
     heading: "Delivering Timeless Elegance and Mixology Excellence to Your Events.",
     description:
-      "Crafting experiences that harmonize classic elegance with natural serenity, bringing refinement and balance to every occasion.",
+      "Crafting unforgettable catering experiences in the UAE, where exceptional beverage services and refined hospitality bring elegance and balance to every occasion.",
     button: "Book Your Event",
     cateringHeading: "Luxury Coffee Service Across All Emirates",
     cateringDescription:

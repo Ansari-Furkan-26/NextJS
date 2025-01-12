@@ -13,7 +13,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Rukn Al Dyafa | Hospitality Services",
+  title:{
+    default:"Rukn Al Dyafa | Hospitality Services",
+    template: "%s - Rukn Al Dyafa"
+  },
   description: "Discover premium Arabic coffee service and hospitality services in the UAE. We specialize in luxurious beverage catering for weddings, corporate events, and private gatherings, offering a unique experience with authentic Arabic coffee service.",
   openGraph: {
     title: "Rukn Al Dyafa | Hospitality Services",
@@ -22,7 +25,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "https://www.ruknaldyafa.store/your-image.jpg",  // Add an appropriate image URL
+        url: "/opengraph-image.png",  // Add an appropriate image URL
         width: 800,
         height: 600,
         alt: "Arabic Coffee Service in the UAE",

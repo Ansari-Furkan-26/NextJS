@@ -1,10 +1,9 @@
 # robots.txt for https://www.ruknaldyafa.store
 
 User-agent: *
+Allow: /
 Disallow: /admin/
 Disallow: /login/
-Disallow: /checkout/
-Disallow: /cart/
 Disallow: /account/
 
 Sitemap: https://www.ruknaldyafa.store/sitemap.xml
