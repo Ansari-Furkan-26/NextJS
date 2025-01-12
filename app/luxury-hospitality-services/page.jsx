@@ -3,7 +3,7 @@ import React, { Suspense, useState } from "react";
 import OrderForm from "@/components/OrderForm";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { NextSeo } from 'next-seo';
+// import { NextSeo } from 'next-seo';
 
 const LuxuryServices = () => {
   const translations = {

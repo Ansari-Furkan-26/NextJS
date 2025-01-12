@@ -5,7 +5,7 @@ import About from '@/components/About';
 // import Gallery from '@/components/HeroGallery';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer"; 
-import { NextSeo } from 'next-seo';
+// import { NextSeo } from 'next-seo';
 import Head from 'next/head';
 
 const AboutSection = () => {

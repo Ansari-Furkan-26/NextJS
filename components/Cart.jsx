@@ -56,7 +56,8 @@ const translations = {
     header: "Cart Summary",
     HotDrink: "Hot Drinks",
     ColdDrink: "Cold Drinks",
-    select: "Selected Package",
+    Select: "Select",
+    SelectedPackage: "Selected Package",
     title: "Package Title",
     price: "Package Price",
     drinks: "Drinks",
@@ -71,16 +72,19 @@ const translations = {
     phone: "Phone",
     guests: "Number of Guests",
     eventDate: "Event Date",
+    TotalAmount: "Grand Total",
     thankYouTitle: "🎉 Thank You!",
     thankYouMessage: "Your order has been successfully submitted. We will reach out to you shortly.",
     specialOffer: "Special Offer: Order Package 3 or higher and get a complimentary Beverage or Perfume with your order.",
     order: "Order Now",
+    Free: "Free",
   },
   arabic: {
     header: "ملخص العربة",
     HotDrink: "المشروبات الساخنة",
     ColdDrink: "المشروبات الباردة",
-    select: "الحزمة المختارة",
+    Select: "يختار",
+    SelectedPackage: "الحزمة المختارة",
     title: "عنوان الحزمة",
     price: "سعر الباقة",
     drinks: "مشروبات",
@@ -95,10 +99,12 @@ const translations = {
     phone: "الهاتف",
     guests: "عدد الضيوف",
     eventDate: "تاريخ الحدث",
+    TotalAmount: "المجموع الإجمالي",
     thankYouTitle: "🎉 شكراً!",
     thankYouMessage: "تم إرسال طلبك بنجاح. سنصل إليك قريبًا.",
     specialOffer: "عرض خاص: اطلب حزمة 3 أو أكثر واحصل على مشروب أو عطر مجاني مع طلبك.",
     order: "اطلب الآن",
+    Free: "حر",
   },
 };
 
@@ -113,22 +119,22 @@ const translations = {
     "Umm Al Quwain": 0,
   };
 
-
-  const Cart = ({ selectedPackage = "Basic Package", selectedPackagePrice = 1000 }) => {
+  const Cart = ({ onSelectPackage,language, selectedPackage = "Basic Package", selectedPackagePrice = 1000 }) => {
     const [formData, setFormData] = useState({});
     const [isClient, setIsClient] = useState(false);
-  
+
     useEffect(() => {
-      setIsClient(true); // Mark that client-side rendering has occurred
+      document.documentElement.lang = language === "arabic" ? "ar" : "en";
+    }, [language]);
+    
+    const t = translations[language] || translations.english;
+
+    useEffect(() => {
+      setIsClient(true);
+      const savedData = localStorage.getItem('formData');
+      setFormData(savedData ? JSON.parse(savedData) : {});
     }, []);
-  
-    useEffect(() => {
-      if (isClient) {
-        const savedData = localStorage.getItem('formData');
-        setFormData(savedData ? JSON.parse(savedData) : {});
-      }
-    }, [isClient]);
-  
+
     useEffect(() => {
       if (isClient) {
         localStorage.setItem('formData', JSON.stringify(formData));
@@ -163,9 +169,6 @@ const translations = {
   const removeDrink = (index) => setSelectedDrinks((prev) => prev.filter((_, i) => i !== index));
   const removeFoodItem = (index) => setSelectedFoodItems((prev) => prev.filter((_, i) => i !== index));
 
-  const language = 'english';
-  const t = translations[language] || translations.english;
-  
 
   const calculateTotal = () => {
     const drinksTotal = selectedDrinks.reduce((sum, drink) => sum + drink.price, 0);
@@ -224,25 +227,18 @@ const translations = {
       <div className="max-w-6xl w-full bg-gray-50 rounded-lg py-8 px-3 md:p-8">
         <h1 className="text-2xl font-bold text-center">{t.header}</h1>
 
-      <div className="mt-4">
-        <p><span className="font-semibold">Name:</span> {formData.name || "No name provided"}</p>
-        <p><span className="font-semibold">Email:</span> {formData.email || "No email provided"}</p>
-        <p><span className="font-semibold">City:</span> {formData.city || "No city selected"}</p>
-        <p><span className="font-semibold">Phone:</span> {formData.phone || "No phone number"}</p>
-        <p><span className="font-semibold">Number of Guests:</span> {formData.guests || "No Guests"}</p>
-        <p><span className="font-semibold">Event Date:</span> {formData.eventDate || "No phone number"}</p>
-      </div>
-
-      {/* Beverages Dropdowns */}
-      <div className="mt-6 flex justify-between">
-        <div className="w-1/2 pr-2">
-          <label className="block font-semibold">Hot Beverage:</label>
+      {/* Drink Selection*/}
+      <div className="flex justify-between items-center my-6">
+      <div className="w-1/2 mr-4">
+          <label htmlFor="hotDrink" className="block text-sm font-medium mb-2">
+            {t.HotDrink}
+          </label>
           <select
             value={selectedHotDrinks}
-            onChange={(e) => handleDrinkSelection("Hot Beverage", e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded"
+            onChange={(e) => handleDrinkSelection("Hot Drink", e.target.value)}
+            className="border border-gray-300 rounded-md px-3 py-2 w-full"
           >
-            <option value="">Select Hot Drinks</option>
+            <option value="">--{t.Select} {t.HotDrink}--</option>
             {hotBeverages.map((beverage) => (
               <option key={beverage} value={beverage}>
                 {beverage}
@@ -251,13 +247,13 @@ const translations = {
           </select>
         </div>
         <div className="w-1/2 pl-2">
-          <label className="block font-semibold">Cold Beverage:</label>
+          <label className="block font-semibold">{t.ColdDrink}:</label>
           <select
             value={selectedColdDrinks}
             onChange={(e) => handleDrinkSelection("Cold Beverage", e.target.value)}
             className="w-full p-2 border border-gray-300 rounded"
           >
-            <option value="">Select Cold Drinks</option>
+            <option value="">--{t.Select} {t.ColdDrink}--</option>
             {coldBeverages.map((beverage) => (
               <option key={beverage} value={beverage}>
                 {beverage}
@@ -267,7 +263,7 @@ const translations = {
         </div>
       </div>
 
-      {/* Food Section */}
+      {/* Food Selection */}
       <div className="mb-6">
         <h2 className="text-md font-semibold mb-2">{t.fooditem}</h2>
         <select
@@ -275,86 +271,143 @@ const translations = {
           onChange={handleFoodChange}
           className="w-full p-2 border border-gray-300 rounded"
         >
-          <option value="">-- Select --</option>
+          <option value="">-- {t.Select} --</option>
           {foodItems.map((food) => (
             <option key={food.name} value={food.name}>
               {food.name} - {food.price} AED
             </option>
           ))}
         </select>
-        {selectedFood && foodPrice > 0 && (
-          <p className="mt-2 text-gray-700">
-            Price: <span className="font-semibold">{foodPrice} AED</span>
-          </p>
-        )}
+        {selectedFood && foodPrice > 0 }
       </div>
 
 
-      {/* Selected Package and Drinks/Food */}
-      <div className="mt-6">
-        <h3 className="font-semibold">Selected Package:</h3>
-        <p>{selectedPackage} - {selectedPackagePrice} AED</p>
-      </div>
-      <div className="mt-6">
-        <h3 className="font-semibold">Selected Drinks:</h3>
-        {selectedDrinks.map((drink, index) => (
-          <div key={index} className="flex justify-between">
-            <span>{drink.type}: {drink.name}</span>
-            <span>{drink.price} AED</span>
-            <button onClick={() => removeDrink(index)} className="text-red-500">
-              <MdDelete />
-            </button>
-          </div>
-        ))}
-      </div>
-      <div className="mt-6">
-        <h3 className="font-semibold">Selected Food Items:</h3>
-        {selectedFoodItems.map((food, index) => (
-          <div key={index} className="flex justify-between">
-            <span>{food.name}</span>
-            <span>{food.price} AED</span>
-            <button onClick={() => removeFoodItem(index)} className="text-red-500">
-              <MdDelete />
-            </button>
-          </div>
-        ))}
-      </div>
+      {/* Selected Package Details */}
+      <div className="border rounded-lg p-4 my-6 bg-gray-50">
+          <h2 className="text-xl font-semibold mb-4">{t.SelectedPackage}</h2>
+
+          {/* Display Package Details Only if Available */}
+          {selectedPackage && selectedPackagePrice && (
+            <>
+              <div className="flex justify-between border-b pb-2">
+                <span className="font-medium">{t.title}:</span>
+                <span>{selectedPackage}</span>
+              </div>
+              <div className="flex justify-between border-b pb-2">
+                <span className="font-medium">{t.price}:</span>
+                <span>{selectedPackagePrice} AED</span>
+              </div>
+            </>
+          )}
+
+      {/* Display Selected Drinks, if Any */}
+      {selectedDrinks.length > 0 && (
+        <div className="mb-4">
+          <h3 className="font-semibold mb-2">{t.drinks}:</h3>
+          {selectedDrinks.map((drink, index) => (
+            <div key={index} className="flex justify-between items-center border-b pb-2">
+              <div>
+                <span>{drink.type}: {drink.name}</span>
+              </div>
+              <div className="flex items-center">
+                <span>{drink.price} AED</span>
+                <button
+                  className="ml-4 text-red-500 font-bold hover:text-red-700"
+                  onClick={() => removeDrink(index)}
+                >
+                  <MdDelete />
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Display Selected Food Items, if Any */}
+      {selectedFoodItems.length > 0 && (
+        <div className="mb-4">
+          <h3 className="font-semibold mb-2">{t.selectedfood}:</h3>
+          {selectedFoodItems.map((food, index) => (
+            <div key={index} className="flex justify-between items-center border-b pb-2">
+              <div>{food.name}</div>
+              <div className="flex items-center">
+                <span>{food.price} AED</span>
+                <button
+                  className="ml-4 text-red-500 font-bold hover:text-red-700"
+                  onClick={() => removeFoodItem(index)}
+                >
+                  <MdDelete />
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+
 
       {/* Delivery Charges */}
       <div className="flex justify-between mt-4 text-lg">
-          <span>{t.Charges || "Delivery Charges"}:</span>
+          <span>{t.Charges}:</span>
           <span>
-            {DELIVERY_CHARGES[formData.city] === 0 ? "Free" : `${DELIVERY_CHARGES[formData.city]} AED`}
+            {DELIVERY_CHARGES[formData.city] === 0 ? `${t.Free}` : `${DELIVERY_CHARGES[formData.city]} AED`}
           </span>
-        </div>
-
-      {/* Total Price */}
-      <div className="mt-6 flex justify-between font-bold">
-        <span>Total Amount:</span>
-        <span>{calculateTotal()} AED</span>
       </div>
 
-      {/* Submit Button */}
+
+      {/* Total Price */}
+      <div className="flex justify-between mt-4 text-lg font-bold">
+          <span>{t.TotalAmount}:</span>
+          <span>{calculateTotal()} AED</span>
+      </div>
+
+      {/* Client Entries Section */}
+      <div className="border rounded-lg p-4 my-6 bg-gray-50">
+          <h2 className="text-xl font-semibold mb-4">{t.clientEntries}</h2>
+          <div className="space-y-2">
+            {[
+              { label: t.name, value: formData.name },
+              { label: t.email, value: formData.email }, 
+              { label: t.city, value: formData.city },
+              { label: t.phone, value: formData.countryCode ? `${formData.countryCode} ${formData.phone}` : formData.phone },
+              { label: t.guests, value: formData.guests },
+              { label: t.eventDate, value: formData.eventDate },
+            ].map((item, index) => (
+              <div key={index} className="flex justify-between border-b pb-2">
+                <span className="font-medium">{item.label}:</span>
+                <span className="truncate max-w-xs md:max-w-full">
+                  {item.value || "N/A"}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      {/* <div className="text-left my-5 rounded-lg">
+        <p><strong>Special Offer: </strong><br /> Order Package 3 or higher and get a complimentary Beverage or Perfume with your order.</p>
+      </div> */}
+
+      {/* Place Order Button */}
       <button
-        onClick={handleOrderSubmit}
-        className="w-full py-3 bg-blue-500 text-white rounded-lg mt-6"
-      >
-        Place Order
-      </button>
+          className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-green-600"
+          onClick={handleOrderSubmit}>
+          {t.order}
+        </button>
 
       {/* Thank You Popup */}
       {showThankYouPopup && (
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-            <h2 className="text-2xl font-semibold mb-4">Thank You for Your Order!</h2>
-            <button
-              className="mt-4 bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700"
-              onClick={() => setShowThankYouPopup(false)}
-            >
-              Close
-            </button>
-          </div>
-        </div>
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+              <h2 className="text-2xl font-semibold mb-4">{t.thankYouTitle}</h2>
+              <p>{t.thankYouMessage}</p>
+              <button
+                className="mt-4 bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700"
+                onClick={() => setShowThankYouPopup(false)}
+              >
+                Close
+              </button>
+            </div>
+          </div> 
       )}
     </div>
     </div>

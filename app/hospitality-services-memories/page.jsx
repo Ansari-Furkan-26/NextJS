@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { NextSeo } from 'next-seo';
+// import { NextSeo } from 'next-seo';
 
 // Manually import images from the public/images folder
 const sampleImages = Array.from({ length: 51 }, (_, index) => ({

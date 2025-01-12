@@ -12,7 +12,7 @@ import FeaturedArtworks from "@/components/HeroGallery";
 import Home from "@/components/Home";
 import Footer from "@/components/Footer";
 import ReviewSection from "@/components/ReviewSection";
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 
 // Load fonts
 const geistSans = Geist({
@@ -26,7 +26,7 @@ const geistMono = Geist_Mono({
 });
 
 // Dynamically import NextSeo correctly
-const NextSeo = dynamic(() => import('next-seo').then(mod => mod.NextSeo), { ssr: false });
+// const NextSeo = dynamic(() => import('next-seo').then(mod => mod.NextSeo), { ssr: false });
 
 export default function HomePage() {
   const [language, setLanguage] = useState("english");
@@ -87,7 +87,7 @@ export default function HomePage() {
   return (
     <div className={`${geistSans.variable} ${geistMono.variable}`}>
       {/* SEO Metadata */}
-      <NextSeo
+      {/* <NextSeo
         title={currentSeoData.title}
         description={currentSeoData.description}
         canonical={currentSeoData.url}
@@ -98,7 +98,7 @@ export default function HomePage() {
           description: currentSeoData.openGraph.description,
           image: currentSeoData.openGraph.images[0].url,
         }}
-      />
+      /> */}
 
       {/* Navbar */}
       <Navbar
