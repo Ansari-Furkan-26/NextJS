@@ -1,8 +1,6 @@
 'use client';
 
 import React, { useState } from "react";
-import About from '@/components/About';
-// import Gallery from '@/components/HeroGallery';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer"; 
 import ConatctForm from "@/components/ContactForm";
@@ -38,9 +36,9 @@ const AboutSection = () => {
 
       {/* Background image and text about capturing moments */}
       <section
-        className="relative bg-cover bg-top h-[500px] flex items-center justify-center"
+        className="relative bg-cover bg-top h-[400px] flex items-center justify-center"
         style={{
-          backgroundImage: `url('https://i.pinimg.com/736x/55/95/12/5595121ab539e4bddcfba4f6d788f484.jpg')`,
+          backgroundImage: `url('https://i.pinimg.com/736x/ff/61/64/ff61648d86c416d2cc1fa85f4c253e7a.jpg')`,
         }}
       >
         <div className="absolute inset-0 bg-black opacity-50"></div>

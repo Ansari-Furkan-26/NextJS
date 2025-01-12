@@ -9,8 +9,8 @@ import { NextSeo } from 'next-seo';
 // Manually import images from the public/images folder
 const sampleImages = Array.from({ length: 51 }, (_, index) => ({
   id: index + 1,
-  src: `/images/${index + 1}.jpg`, // Automatically generate paths from 1.jpg to 51.jpg
-  alt: `Image ${index + 1}`,
+  src: `/${index + 1}.jpg`, // Automatically generate paths from 1.jpg to 51.jpg
+  alt: `Arabic coffee service ${index + 1}`,
 }));
 export default function GalleryPage() {
   const [language, setLanguage] = useState("english");

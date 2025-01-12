@@ -43,19 +43,19 @@ const About = ({ language }) => {
 
   const blogs = [
     {
-      image: "/images/8.jpg",
+      image: "/8.jpg",
       title: t.blogTitle,
       message: t.blogMessage,
       readTime: t.readTime, // Using dynamic read time translation
     },
     {
-      image: "/images/9.jpg",
+      image: "/9.jpg",
       title: t.teaTimeTitle,
       message: t.teaTimeMessage,
       readTime: t.readTime, // Using dynamic read time translation
     },
     {
-      image: "/images/16.jpg",
+      image: "/16.jpg",
       title: t.sweetTreatsTitle,
       message: t.sweetTreatsMessage,
       readTime: t.readTime, // Using dynamic read time translation
