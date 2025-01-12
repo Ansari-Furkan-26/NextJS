@@ -50,7 +50,7 @@ const aboutContent = {
   english: {
     heading: "Delivering Timeless Elegance and Mixology Excellence to Your Events.",
     description:
-      "Crafting experiences that harmonize classic elegance with natural serenity, bringing refinement and balance to every occasion.",
+      "Crafting unforgettable catering experiences in the UAE, where exceptional beverage services and refined hospitality bring elegance and balance to every occasion.",
     button: "Book Your Event",
     cateringHeading: "Luxury Coffee Service Across All Emirates",
     cateringDescription:

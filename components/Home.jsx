@@ -29,17 +29,17 @@ export default function HomePage({ language, toggleLanguage }) {
 
   const translations = {
     english: {
-      heading: "Flavors that tell stories, \n and hospitality that inspires moments.",
+      heading: "Delicious flavors, inspiring hospitality,\n and the best coffee and catering services in the UAE.",
       paragraph:
-        "At Rukn Al Dyafa, we deliver the elegance of traditional hospitality through luxurious catering, crafting unforgettable experiences with exquisite beverages for every occasion.",
+        "At Rukn Al Dyafa, we offer premier hospitality services in the UAE, delivering the elegance of traditional hospitality through luxurious catering and the best coffee service in the UAE, crafting unforgettable experiences with exquisite beverages for every occasion.",
       bookNow: "Book Now",
       SideQuote: "Every season there is a set for two-tours",
       SideDesc: "Exclusive arrangements, and immersive experiences for beverage services."
     },
     arabic: {
-      heading: "نكهات تروي القصص، \nوضيافة تلهم اللحظات.",
+      heading:"نكهة لذيذة، ضيافة ملهمة، وأفضل خدمات القهوة والتموين في الإمارات.",
       paragraph:
-        "في ركن الضيافة، نقدم أناقة الضيافة التقليدية من خلال خدمات الضيافة الفاخرة، ونصنع تجارب لا تُنسى مع مشروبات راقية لكل مناسبة.",
+        "في ركن الضيافة، نقدم خدمات الضيافة الرائدة في دولة الإمارات العربية المتحدة، ونقدم أناقة الضيافة التقليدية من خلال تقديم الطعام الفاخر وأفضل خدمة القهوة في دولة الإمارات العربية المتحدة، وصياغة تجارب لا تنسى مع مشروبات رائعة في كل مناسبة.",
       bookNow: "احجز الآن",
       SideQuote: "في كل موسم هناك مجموعة لجولتين",
       SideDesc: "ترتيبات حصرية وتجارب غامرة لخدمات المشروبات"
